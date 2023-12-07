@@ -1,4 +1,3 @@
-import React from 'react';
 import { IList } from '../../module';
 import { Video } from '../Video/Video';
 

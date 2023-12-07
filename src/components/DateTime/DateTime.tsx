@@ -1,4 +1,3 @@
-import React from 'react'
 import { TDate } from '../../module'
 
 export const DateTime = ({ date }: TDate) => {

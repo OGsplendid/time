@@ -1,4 +1,3 @@
-import React from 'react'
 import { IListItem } from '../../module'
 import { DateTimePretty } from '../DateTimePretty/DateTimePretty'
 

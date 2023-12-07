@@ -11,6 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://freepad.github.io/time/",
   "dependencies": {
     "date-fns": "^2.30.0",
     "gh-pages": "^6.1.0",

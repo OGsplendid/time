@@ -6,13 +6,13 @@ interface IRelativeDateTimeProps {
     date: string,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function withRelativeDateTime(Component: any) {
-
-    return class extends React.Component<IRelativeDateTimeProps, IRelativeDateTimeProps> {
+function withRelativeDateTime<
+    T extends IRelativeDateTimeProps = IRelativeDateTimeProps
+>(WrappedComponent: React.ComponentType<T>) {
+    class WithRelativeDateTime extends React.Component<T> {
         state = {
             date: '',
-        };
+        } as T;
 
         componentDidMount(): void {
             const inTime = Date.parse(this.props.date);
@@ -20,28 +20,16 @@ function withRelativeDateTime(Component: any) {
             const diff = differenceInMinutes(formattedDate, new Date());
             diff < 60 ? this.setState({date: `${diff} минут назад`})
                 : diff < 24 * 60 ? this.setState({date: `${(diff / 60).toFixed(0)} часов назад`})
-                : this.setState({date: `${(diff / 60 / 24).toFixed(0)} дней назад`});
+                    : this.setState({date: `${(diff / 60 / 24).toFixed(0)} дней назад`});
         }
 
         render() {
             console.log(this.props)
-            return <Component {...this.state} />
+            return <WrappedComponent {...this.state} />
         }
     }
+
+    return WithRelativeDateTime;
 }
-
-// function withRelativeDateTime<P>(Component: React.ComponentType<P & TDate>) {
-
-//     const ResultComponent = (props: P) => {
-//         return <Component {...props} />
-//     }
-
-//     // return class extends React.Component {
-//     //     render() {
-//     //         return <Component {...this.props} />
-//     //     }
-//     // }
-//     return ResultComponent;
-// }
 
 export const DateTimePretty = withRelativeDateTime(DateTime);
